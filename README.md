@@ -14,7 +14,6 @@ Tools:
 
 * [echo](https://echo.labstack.com/) - Framework Web
 * [go mod](https://blog.golang.org/using-go-modules) - Dependency
-* [viper](https://github.com/spf13/viper) - Settings 
 * [logrus](github.com/sirupsen/logrus) - Log
 * [sqlx](https://github.com/jmoiron/sqlx) - Connection management of relational banks
 * [validator](github.com/go-playground/validator/v10) - Struct Validator
