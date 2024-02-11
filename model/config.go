@@ -16,12 +16,14 @@ type Config struct {
 func LoadConfiguration(file string) Config {
 	var config Config
 	configFile, err := os.Open(file)
-	defer configFile.Close()
 	if err != nil {
 		fmt.Println(err.Error())
 	}
+	defer configFile.Close()
+
 	jsonParser := json.NewDecoder(configFile)
 	jsonParser.Decode(&config)
+
 	return config
 }
 
