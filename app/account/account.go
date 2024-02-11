@@ -26,13 +26,13 @@ type appImpl struct {
 func (s *appImpl) Create(ctx context.Context, account model.AccountRequest) (*model.Account, error) {
 	id, err := s.stores.Account.Create(ctx, account)
 	if err != nil {
-		logger.ErrorContext(ctx, "app.account.Create.Create", err.Error())
+		logger.ErrorContext(ctx, "app.account.Create.Create: ", err.Error())
 		return nil, err
 	}
 
 	data, err := s.stores.Account.ReadOne(ctx, id)
 	if err != nil {
-		logger.ErrorContext(ctx, "app.account.Create.ReadOne", err.Error())
+		logger.ErrorContext(ctx, "app.account.Create.ReadOne: ", err.Error())
 		return nil, err
 	}
 
@@ -42,7 +42,7 @@ func (s *appImpl) Create(ctx context.Context, account model.AccountRequest) (*mo
 func (s *appImpl) ReadOne(ctx context.Context, accountID string) (*model.Account, error) {
 	account, err := s.stores.Account.ReadOne(ctx, accountID)
 	if err != nil {
-		logger.ErrorContext(ctx, "app.account.ReadOne.ReadOne", err.Error())
+		logger.ErrorContext(ctx, "app.account.ReadOne.ReadOne: ", err.Error())
 		return nil, err
 	}
 

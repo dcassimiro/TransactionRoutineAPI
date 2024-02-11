@@ -32,13 +32,13 @@ func (r *storeImpl) Create(ctx context.Context, account model.AccountRequest) (s
 	VALUES (?);
 `, account.DocumentNumber)
 	if err != nil {
-		logger.ErrorContext(ctx, "store.account.Create", err.Error())
-		return "", trerr.New(http.StatusInternalServerError, "não foi possível criar uma nova account", nil)
+		logger.ErrorContext(ctx, "store.account.Create: ", err.Error())
+		return "", trerr.New(http.StatusInternalServerError, "Unable to create a new account", nil)
 	}
 
 	id, err := result.LastInsertId()
 	if err != nil {
-		logger.ErrorContext(ctx, "store.account.Create", err.Error())
+		logger.ErrorContext(ctx, "store.account.Create: ", err.Error())
 
 	}
 	return strconv.FormatInt(id, 10), nil
@@ -55,7 +55,7 @@ func (r *storeImpl) ReadOne(ctx context.Context, accountID string) (*model.Accou
 		account_ID = ?;
 `, accountID)
 	if err != nil {
-		logger.ErrorContext(ctx, "store.account.ReadOne", err.Error())
+		logger.ErrorContext(ctx, "store.account.ReadOne: ", err.Error())
 		return nil, err
 	}
 

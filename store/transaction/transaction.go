@@ -32,7 +32,7 @@ func (r *storeImpl) Create(ctx context.Context, transaction model.TransactionReq
 	VALUES (?, ?, ?);
 `, transaction.AccountID, transaction.OperationsTypeID, transaction.Amount)
 	if err != nil {
-		return "", trerr.New(http.StatusInternalServerError, "não foi possível criar uma nova transaction", nil)
+		return "", trerr.New(http.StatusInternalServerError, "Unable to create a new transaction", nil)
 	}
 
 	id, err := result.LastInsertId()

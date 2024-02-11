@@ -27,16 +27,16 @@ func (h *handler) create(c echo.Context) error {
 
 	var request model.AccountRequest
 	if err := c.Bind(&request); err != nil {
-		logger.ErrorContext(ctx, "api.v1.account.create.Bind", err.Error())
+		logger.ErrorContext(ctx, "api.v1.account.create.Bind: ", err.Error())
 		return c.JSON(http.StatusBadRequest, model.Response{
-			Data: "Falha ao recuperar dados da requisição",
+			Data: "Failed to retrieve request data",
 		})
 	}
 
 	if err := c.Validate(&request); err != nil {
-		logger.ErrorContext(ctx, "api.v1.account.create.Validate", err.Error())
+		logger.ErrorContext(ctx, "api.v1.account.create.Validate: ", err.Error())
 		return c.JSON(http.StatusBadRequest, model.Response{
-			Data: "Requisição Inválida",
+			Data: "Invalid Request",
 		})
 	}
 
@@ -55,9 +55,9 @@ func (h *handler) readOne(c echo.Context) error {
 
 	accountId := c.Param("accountId")
 	if accountId == "" {
-		logger.ErrorContext(ctx, "api.v1.account.readOne", "o campo 'accountId' é obrigatório")
+		logger.ErrorContext(ctx, "api.v1.account.readOne: ", "the 'accountId' field is mandatory")
 		return c.JSON(http.StatusBadRequest, model.Response{
-			Data: "Falha ao recuperar dados da requisição",
+			Data: "Failed to retrieve request data",
 		})
 	}
 
