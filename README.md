@@ -17,7 +17,7 @@ Tools:
 * [logrus](github.com/sirupsen/logrus) - Log
 * [sqlx](https://github.com/jmoiron/sqlx) - Connection management of relational banks
 * [validator](github.com/go-playground/validator/v10) - Struct Validator
-* [mockgen](https://github.com/golang/mock) - Mock for testing
+* [mockgen](https://github.com/uber-go/mock) - Mock for testing
 
 ### Local environment configuration
 
