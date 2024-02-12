@@ -16,7 +16,7 @@ import (
 )
 
 var (
-	defaultError = trerr.New(http.StatusInternalServerError, "ocorreu um erro", nil)
+	defaultError = trerr.New(http.StatusInternalServerError, "an error has occurred", nil)
 )
 
 func Test_appImpl_Create(t *testing.T) {
