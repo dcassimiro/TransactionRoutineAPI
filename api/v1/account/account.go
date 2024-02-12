@@ -7,6 +7,7 @@ import (
 	"github.com/pismo/TransactionRoutineAPI/app"
 	"github.com/pismo/TransactionRoutineAPI/logger"
 	"github.com/pismo/TransactionRoutineAPI/model"
+	"github.com/pismo/TransactionRoutineAPI/trerr"
 )
 
 func Register(g *echo.Group, apps *app.Container) {
@@ -56,9 +57,7 @@ func (h *handler) readOne(c echo.Context) error {
 	accountId := c.Param("accountId")
 	if accountId == "" {
 		logger.ErrorContext(ctx, "api.v1.account.readOne: ", "the 'accountId' field is mandatory")
-		return c.JSON(http.StatusBadRequest, model.Response{
-			Data: "Failed to retrieve request data",
-		})
+		return trerr.New(http.StatusBadRequest, "Invalid Request", nil)
 	}
 
 	data, err := h.apps.Account.ReadOne(ctx, accountId)

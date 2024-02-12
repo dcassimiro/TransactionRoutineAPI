@@ -56,7 +56,9 @@ func (r *storeImpl) ReadOne(ctx context.Context, accountID string) (*model.Accou
 `, accountID)
 	if err != nil {
 		logger.ErrorContext(ctx, "store.account.ReadOne: ", err.Error())
-		return nil, err
+		return nil, trerr.New(http.StatusNotFound, "I didn't find an account with that id", map[string]string{
+			"accountId": accountID,
+		})
 	}
 
 	return account, nil
