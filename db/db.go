@@ -33,7 +33,7 @@ func CreateDB() {
 		transaction_ID      INT(11) NOT NULL AUTO_INCREMENT
 	   ,account_ID   	   	INT(11) NOT NULL
 	   ,operationType_ID   	INT(11) NOT NULL
-	   ,amount				FLOAT(10,2) NOT NULL
+	   ,amount				DECIMAL(10,2) NOT NULL
 	   ,eventDate 			DATETIME DEFAULT CURRENT_TIMESTAMP
 	   ,PRIMARY KEY (transaction_ID)
 	   ,FOREIGN KEY (account_ID) REFERENCES accounts (account_ID)
