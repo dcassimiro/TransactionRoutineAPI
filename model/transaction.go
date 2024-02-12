@@ -1,12 +1,13 @@
 package model
 
-import "time"
+import (
+	"time"
+)
 
 type TransactionRequest struct {
 	AccountID        int     `json:"account_id" validate:"required"`
 	OperationsTypeID int     `json:"operation_type_id" validate:"required"`
 	Amount           float32 `json:"amount" validate:"required"`
-	EventDate        time.Time
 }
 
 type Transaction struct {

@@ -58,7 +58,9 @@ func (r *storeImpl) ReadOne(ctx context.Context, transactionID string) (*model.T
 `, transactionID)
 	if err != nil {
 		logger.ErrorContext(ctx, "store.transaction.ReadOne: ", err.Error())
-		return nil, err
+		return nil, trerr.New(http.StatusNotFound, "I didn't find a transaction with this id", map[string]string{
+			"transactionId": transactionID,
+		})
 	}
 
 	return transaction, nil
