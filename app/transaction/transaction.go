@@ -23,7 +23,7 @@ type appImpl struct {
 }
 
 func (s *appImpl) Create(ctx context.Context, transaction model.TransactionRequest) (*model.Transaction, error) {
-	transaction.Amount = amout(transaction.OperationsTypeID, transaction.Amount)
+	transaction.Amount = amount(transaction.OperationsTypeID, transaction.Amount)
 
 	id, err := s.stores.Transaction.Create(ctx, transaction)
 	if err != nil {

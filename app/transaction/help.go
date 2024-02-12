@@ -7,7 +7,7 @@ const (
 	PAGAMENTO        = 4
 )
 
-func amout(op int, am float32) float32 {
+func amount(op int, am float32) float32 {
 	if op != PAGAMENTO {
 		am = am - (am + am)
 	}
