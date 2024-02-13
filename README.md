@@ -45,7 +45,8 @@ Tools:
 
 ### 🚗 Running
 
-* `make run`: default command to run the program.
+* 1 - `docker-compose up`: command to initialize mysql.
+* 2 - `make run`: default command to run the program.
 
 - OBS.: The Project will run at the door `:8080`
 
@@ -60,40 +61,24 @@ Tools:
 - `./app`: Here you will find all the code used for orchestration and business rules of the service.
 - `./store`: Here you will find all the code that is used to interact with the database.
 - `./db`: Directory for creating databases and tables.
-- `./utils`: Sub-modules required for project maintenance in general.
 
 
 ### Endpoints
 
 * **Create**
-`POST - http://localhost:8080/v1/accounts`
-body request:
+`curl -X POST -H "Content-Type: application/json" -d '{ "document_number": "12345678900"}' http://localhost:8080/v1/accounts`
 
-```
-{
-    "document_number": "12345678900",
-}
-
-```
 Response
 201 = Status Created
 
-`POST - http://localhost:8080/v1/transactions`
-body request:
+`curl -X POST -H "Content-Type: application/json" -d '{ "account_id": 1, "operation_type_id": 4, "amount": 123.45 }' http://localhost:8080/v1/transactions`
 
-```
-{
-    "account_id": 1,
-    "operation_type_id": 4,
-    "amount": 123.45
-}
-
-```
 Response
 201 = Status Created
 
 
 * **ReadOne**
-`GET - http://localhost:8080/v1/accounts/:accountId`
+`curl -i localhost:8080/v1/accounts/1`
+
 Response
 200 = Status OK
