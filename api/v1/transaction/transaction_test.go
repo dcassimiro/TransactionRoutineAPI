@@ -14,12 +14,14 @@ import (
 	"github.com/pismo/TransactionRoutineAPI/model"
 	"github.com/pismo/TransactionRoutineAPI/test"
 	"github.com/pismo/TransactionRoutineAPI/validator"
+	"github.com/shopspring/decimal"
 	"go.uber.org/mock/gomock"
 )
 
 var defaultDate time.Time
 
 func Test_handler_create(t *testing.T) {
+	amount := decimal.NewFromFloat(123.45)
 	cases := map[string]struct {
 		ExpectedErr  error
 		ExpectedData string
@@ -28,21 +30,21 @@ func Test_handler_create(t *testing.T) {
 		PrepareMock func(mock *mocks.MockTransactionApp)
 	}{
 		"should return success": {
-			ExpectedData: `{"data":{"transaction_id":1,"account_id":1,"operation_type_id":4,"amount":123.45,"eventDate":"0001-01-01T00:00:00Z"}}`,
+			ExpectedData: `{"data":{"transaction_id":1,"account_id":1,"operation_type_id":4,"amount":"123.45","eventDate":"0001-01-01T00:00:00Z"}}`,
 
 			InputBody: `{"account_id": 1, "operation_type_id": 4, "amount": 123.45}`,
 			PrepareMock: func(mockApp *mocks.MockTransactionApp) {
 				mockApp.EXPECT().Create(gomock.Any(), model.TransactionRequest{
 					AccountID:        1,
 					OperationsTypeID: 4,
-					Amount:           123.45,
+					Amount:           amount,
 				}).
 					Times(1).
 					Return(&model.Transaction{
 						TransactionID:    1,
 						AccountID:        1,
 						OperationsTypeID: 4,
-						Amount:           123.45,
+						Amount:           amount,
 						EventDate:        defaultDate,
 					}, nil)
 			},

@@ -13,12 +13,14 @@ import (
 	"github.com/pismo/TransactionRoutineAPI/store/transaction"
 	"github.com/pismo/TransactionRoutineAPI/test"
 	"github.com/pismo/TransactionRoutineAPI/trerr"
+	"github.com/shopspring/decimal"
 )
 
 var defaultDate = time.Now()
 
 func Test_storeImpl_Create(t *testing.T) {
-	var amount float32 = 123.45
+	var amount float64 = 123.45
+	value := decimal.NewFromFloat(amount)
 	cases := map[string]struct {
 		ExpectedErr error
 
@@ -26,13 +28,13 @@ func Test_storeImpl_Create(t *testing.T) {
 		PrepareMock      func(mock sqlmock.Sqlmock)
 	}{
 		"should return success": {
-			InputTransaction: model.TransactionRequest{AccountID: 1, OperationsTypeID: 2, Amount: amount},
+			InputTransaction: model.TransactionRequest{AccountID: 1, OperationsTypeID: 2, Amount: decimal.NewFromFloat(amount)},
 			PrepareMock: func(mock sqlmock.Sqlmock) {
 				mock.ExpectExec(`
 					INSERT INTO transactions (account_ID, operationType_ID, amount)
 					VALUES (?, ?, ?);
 				`).
-					WithArgs(1, 2, amount).
+					WithArgs(1, 2, value).
 					WillReturnResult(sqlmock.NewResult(1, 1))
 			},
 		},
@@ -85,7 +87,7 @@ func Test_storeImpl_ReadOne(t *testing.T) {
 				TransactionID:    1,
 				AccountID:        1,
 				OperationsTypeID: 4,
-				Amount:           123.45,
+				Amount:           decimal.NewFromFloat(123.45),
 				EventDate:        defaultDate,
 			},
 

@@ -11,6 +11,7 @@ import (
 	"github.com/pismo/TransactionRoutineAPI/store"
 	"github.com/pismo/TransactionRoutineAPI/test"
 	"github.com/pismo/TransactionRoutineAPI/trerr"
+	"github.com/shopspring/decimal"
 	"go.uber.org/mock/gomock"
 )
 
@@ -19,6 +20,7 @@ var (
 )
 
 func Test_appImpl_Create(t *testing.T) {
+	amountN := decimal.NewFromFloat(-123.45)
 	cases := map[string]struct {
 		ExpectedErr  error
 		ExpectedData *model.Transaction
@@ -30,13 +32,13 @@ func Test_appImpl_Create(t *testing.T) {
 			ExpectedData: &model.Transaction{
 				TransactionID:    1,
 				AccountID:        1,
-				OperationsTypeID: 2,
-				Amount:           -12.34,
+				OperationsTypeID: transaction.PURCHASE_IN_INSTALLMENTS,
+				Amount:           amountN,
 			},
 
-			InputTransaction: model.TransactionRequest{AccountID: 1, OperationsTypeID: 2, Amount: -12.34},
+			InputTransaction: model.TransactionRequest{AccountID: 1, OperationsTypeID: transaction.PURCHASE_IN_INSTALLMENTS, Amount: amountN},
 			PrepareMock: func(mockStore *mocks.MockTransactionStore) {
-				mockStore.EXPECT().Create(gomock.Any(), model.TransactionRequest{AccountID: 1, OperationsTypeID: 2, Amount: 12.34}).
+				mockStore.EXPECT().Create(gomock.Any(), model.TransactionRequest{AccountID: 1, OperationsTypeID: transaction.PURCHASE_IN_INSTALLMENTS, Amount: decimal.NewFromFloat(123.45)}).
 					Times(1).
 					Return("1", nil)
 
@@ -45,17 +47,17 @@ func Test_appImpl_Create(t *testing.T) {
 					Return(&model.Transaction{
 						TransactionID:    1,
 						AccountID:        1,
-						OperationsTypeID: 2,
-						Amount:           -12.34,
+						OperationsTypeID: transaction.PURCHASE_IN_INSTALLMENTS,
+						Amount:           amountN,
 					}, nil)
 			},
 		},
 		"should return error upon creation": {
 			ExpectedErr: defaultError,
 
-			InputTransaction: model.TransactionRequest{AccountID: 1, OperationsTypeID: 2},
+			InputTransaction: model.TransactionRequest{AccountID: 1, OperationsTypeID: transaction.PAYMENT},
 			PrepareMock: func(mockStore *mocks.MockTransactionStore) {
-				mockStore.EXPECT().Create(gomock.Any(), model.TransactionRequest{AccountID: 1, OperationsTypeID: 2}).
+				mockStore.EXPECT().Create(gomock.Any(), model.TransactionRequest{AccountID: 1, OperationsTypeID: transaction.PAYMENT}).
 					Times(1).
 					Return("1", defaultError)
 			},
@@ -63,9 +65,9 @@ func Test_appImpl_Create(t *testing.T) {
 		"should return an error when reading": {
 			ExpectedErr: defaultError,
 
-			InputTransaction: model.TransactionRequest{AccountID: 1, OperationsTypeID: 2},
+			InputTransaction: model.TransactionRequest{AccountID: 1, OperationsTypeID: 4},
 			PrepareMock: func(mockStore *mocks.MockTransactionStore) {
-				mockStore.EXPECT().Create(gomock.Any(), model.TransactionRequest{AccountID: 1, OperationsTypeID: 2}).
+				mockStore.EXPECT().Create(gomock.Any(), model.TransactionRequest{AccountID: 1, OperationsTypeID: transaction.PAYMENT}).
 					Times(1).
 					Return("1", nil)
 

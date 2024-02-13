@@ -18,6 +18,7 @@ Tools:
 * [sqlx](https://github.com/jmoiron/sqlx) - Connection management of relational banks
 * [validator](github.com/go-playground/validator/v10) - Struct Validator
 * [mockgen](https://github.com/uber-go/mock) - Mock for testing
+* [decimal](github.com/shopspring/decimal) - Work with monetary values 
 
 ### Local environment configuration
 

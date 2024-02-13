@@ -23,7 +23,9 @@ type appImpl struct {
 }
 
 func (s *appImpl) Create(ctx context.Context, transaction model.TransactionRequest) (*model.Transaction, error) {
-	transaction.Amount = amount(transaction.OperationsTypeID, transaction.Amount)
+	if transaction.OperationsTypeID != PAYMENT {
+		transaction.Amount = transaction.Amount.Neg()
+	}
 
 	id, err := s.stores.Transaction.Create(ctx, transaction)
 	if err != nil {
