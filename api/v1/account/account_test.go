@@ -100,6 +100,16 @@ func Test_handler_readOne(t *testing.T) {
 					}, nil)
 			},
 		},
+		"should return not found": {
+			ExpectedData: `{"data":{"account_id":0,"document_number":""}}`,
+
+			InputAcountID: "1",
+			PrepareMock: func(mockApp *mocks.MockAccountApp) {
+				mockApp.EXPECT().ReadOne(gomock.Any(), "1").
+					Times(1).
+					Return(&model.Account{}, nil)
+			},
+		},
 		"should return error: the 'accountId' field is mandatory": {
 			ExpectedErr: defaultError,
 

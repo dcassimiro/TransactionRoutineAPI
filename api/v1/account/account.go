@@ -61,6 +61,13 @@ func (h *handler) readOne(c echo.Context) error {
 	}
 
 	data, err := h.apps.Account.ReadOne(ctx, accountId)
+
+	if trerr.GetHTTPCode(err) == http.StatusNotFound {
+		return c.JSON(http.StatusNotFound, model.Response{
+			Err: err,
+		})
+	}
+
 	if err != nil {
 		return err
 	}
