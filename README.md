@@ -7,7 +7,7 @@ API responsible for recording operations performed in a transaction
 Tools: 
 
 * [Golang](https://golang.org/doc/install)
-* [Docker](https://www.docker.com/)
+* [Docker and Docker Compose](https://docs.docker.com/get-docker/)
 
 
 ### 🛠️ Built with
