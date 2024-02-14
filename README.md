@@ -48,7 +48,7 @@ Tools:
 * 1 - `docker-compose up`: command to initialize mysql.
 * 2 - `make run`: default command to run the program.
 
-- OBS.: The Project will run at the door `:8080`
+- OBS.: The project will be initialized on the port `:8080`
 
 
 ### 🗂 Architecture
