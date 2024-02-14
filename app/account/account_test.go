@@ -139,8 +139,8 @@ func Test_appImpl_ReadOne(t *testing.T) {
 			cs.PrepareMock(mockStore)
 
 			app := account.NewApp(&store.Container{Account: mockStore})
-			feira, err := app.ReadOne(ctx, cs.InputAccountID)
-			if diff := cmp.Diff(feira, cs.ExpectedData); diff != "" {
+			account, err := app.ReadOne(ctx, cs.InputAccountID)
+			if diff := cmp.Diff(account, cs.ExpectedData); diff != "" {
 				t.Error(diff)
 			}
 
